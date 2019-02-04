@@ -2,16 +2,18 @@
 title: "HW1"
 author: "Steven Black"
 date: "2/3/2019"
-output: word_document
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## Homework 1 for IS677 Intro to Data Science
 
-1. You keep track of your mileage each time you fill up your automobile. At your last 6 fillups the mileage numbers were: 65311, 65624, 65908, 66219, 66499, 66821, 67145, and 67447. Enter these numbers into a vector using R. (10 points)
+### 1. You keep track of your mileage each time you fill up your automobile. At your last 6 fillups the mileage numbers were: 65311, 65624, 65908, 66219, 66499, 66821, 67145, and 67447. Enter these numbers into a vector using R. (10 points)
 ```{r}
 mileage_at_last_six_fills <- c(65311, 65624, 65908, 66219, 66499, 66821, 67145, 67447)
 
@@ -19,12 +21,12 @@ print(mileage_at_last_six_fills)
 ```
 
 
-2. Use the function diff() on the data. What does it indicate? (10 points)
+### 2. Use the function diff() on the data. What does it indicate? (10 points)
 ```{r}
 diff(mileage_at_last_six_fills)
 ```
 
-3. Use the max() function to find the maximum, the mean() function to find the average, sd() function to find the standard deviation, and the min() function to get the minimum number of miles between fill-ups. (10 points)
+### 3. Use the max() function to find the maximum, the mean() function to find the average, sd() function to find the standard deviation, and the min() function to get the minimum number of miles between fill-ups. (10 points)
 ```{r}
 maximum <- max(mileage_at_last_six_fills)
 average <- mean(mileage_at_last_six_fills)
@@ -33,7 +35,11 @@ minimum <- min(mileage_at_last_six_fills)
 paste("max: ", maximum, "  avg: ", average, "  stdev: ", sdev, "  min: ", minimum)
 ```
 
-4. Enter your commute times for two weeks (10 days) in minutes: 17 16 20 24 22 15 21 15 17 22. Change the entry for 24 to 18. (10 points)
+### 4. Enter your commute times for two weeks (10 days) in minutes: 17 16 20 24 22 15 21 15 17 22. Change the entry for 24 to 18. (10 points)
+```{r}
+commute_times <- c(17, 16, 20, 24, 22, 15, 21, 15, 17, 22)
+```
+
 5. How many times were your commute 20 minutes or more? Hint: use the sum() function.
 6. Suppose we assume: x = c(1,3,5,7,9), y = c(2,3,5,7,11,13). For the following commands, guess the value first, than try it out in R. Explain the results of each in one sentence or less. (50 points)
 a. x+1
