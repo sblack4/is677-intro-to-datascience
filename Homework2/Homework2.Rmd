@@ -1,0 +1,76 @@
+---
+title: "Homework2"
+author: "Steven Black"
+date: "2/12/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Homework 2 for IS677 Intro to Data Science
+
+
+1. The household data is part of a data set collected from a survey of household
+expenditure and give the expenditure of 20 single men and 20 single women on four
+commodity groups. The units of expenditure are Hong Kong dollars, and the four
+commodity groups are as follows:
+- housing: housing, including fuel and light,
+- food: foodstuff, including alcohol and tobacco,
+- goods: other goods, including clothing, footwear and durable goods,
+- service: services, including transport and vehicles.
+
+The aim of the survey was to investigate how the division of household expenditure
+between the four commodity groups depends on total expenditure and to find out
+whether this relationship differs for men and women. Load the data into a data frame
+in R and use appropriate graphical methods to answer these questions and state
+your conclusions.
+
+```{r}
+household <- read.table("household.txt", header = TRUE, sep = ",")
+```
+
+```{r}
+group_sums <- colSums(household[,1:4])
+pct <- round(group_sums/sum(group_sums)*100)
+lbls <- paste(labels(group_sums), pct, "%")
+pie(group_sums,
+    main = "Household Expenditure: \n Across 4 Commodity Groups for Men & Women",
+    labels = lbls)
+```
+
+```{r}
+groups_sums_grouped <- aggregate(. ~ household$gender, household, sum)
+group_sums_men <- as.numeric(groups_sums_grouped[2, 2:5])
+pct_men <- round(group_sums_men/sum(group_sums_men)*100)
+lbls_men <- paste(labels(group_sums), pct_men, "%")
+pie(group_sums_men,
+    main = "Household Expenditure: \n Across 4 Commodity Groups for Men",
+    labels = lbls_men)
+
+```
+
+```{r}
+group_sums_women <- as.numeric(groups_sums_grouped[1, 2:5])
+pct_women <- round(group_sums_women/sum(group_sums_women)*100)
+lbls_women <- paste(labels(group_sums), pct_women, "%")
+pie(group_sums_women,
+    main = "Household Expenditure: \n Across 4 Commodity Groups for Women",
+    labels = lbls_women)
+
+```
+
+```{r}
+library(vcd)
+gsg <- groups_sums_grouped[2:5]
+row.names(gsg) <- c("Women", "Men")
+spine(as.matrix(gsg), main = "Spinogram of Expenditures \n Commodity Group Spending between Women and Men")
+```
+
+
+2. Mortality rates per 100,000 from male suicides for a number of age groups and a
+number of countries are provided in the suicides2 data set. Load the data into R
+and construct side-by-side box plots for the data from different age groups.
+Comment on what the graphic tells us about the data.
+
