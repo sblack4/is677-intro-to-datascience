@@ -2,7 +2,10 @@
 title: "Homework2"
 author: "Steven Black"
 date: "2/12/2019"
-output: html_document
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -67,6 +70,7 @@ gsg <- groups_sums_grouped[2:5]
 row.names(gsg) <- c("Women", "Men")
 spine(as.matrix(gsg), main = "Spinogram of Expenditures \n Commodity Group Spending between Women and Men")
 ```
+The pie charts and the spinogram above clearly show there is a difference in spending habits between men and woman. Men spend roughly the same proportion of money on each of the four categories while women spend much more on housing and goods. It's possible that women like remodeling their kitchens and lots of clothes and so spend more money in the housing and goods categories. Another explanation is that men eat a lot and are lazy so they spend more in the food and service categories. Explanations of this type rarely come down to one factor and so it is likely that the true cause is a little of both and possibly other factors. 
 
 
 2. Mortality rates per 100,000 from male suicides for a number of age groups and a
@@ -74,3 +78,15 @@ number of countries are provided in the suicides2 data set. Load the data into R
 and construct side-by-side box plots for the data from different age groups.
 Comment on what the graphic tells us about the data.
 
+```{r}
+suicides <- read.table("suicides.txt", header = TRUE, sep = ",")
+```
+```{r}
+num_rows <- nrow(suicides)
+boxplot(suicides,
+        main = paste("Boxplots for 100k Male Suicides for", toString(num_rows), "Countries"),
+        xlab = "Age Groups",
+        ylab = "Number of Suicides",
+        names = c("25 - 34", "35 - 44", "45 - 54", "55 - 64", "65 - 74"))
+```
+Oddly we see more suicides the older men get. There should be more younger men, by the logic that older men must have been younger men at some point, so if the rate of suicides across age groups is constant then there should be a greater number of suicides for younger men. Also strange is the greater variance in suicides between in the groups 25 - 34 and 55 - 64. These age groups roughly correlate to the quarter-life and mid-life chrisis. An explanation for this phenomenon could be that countries with greater pressures for men to succeed see high rates of suicides at these junctures while countries that have less pressure see normal amounts of suicide. 

@@ -1,0 +1,280 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Homework2},
+            pdfauthor={Steven Black},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Homework2}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Steven Black}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{2/12/2019}
+
+
+\begin{document}
+\maketitle
+
+\subsection{Homework 2 for IS677 Intro to Data
+Science}\label{homework-2-for-is677-intro-to-data-science}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The household data is part of a data set collected from a survey of
+  household expenditure and give the expenditure of 20 single men and 20
+  single women on four commodity groups. The units of expenditure are
+  Hong Kong dollars, and the four commodity groups are as follows:
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  housing: housing, including fuel and light,
+\item
+  food: foodstuff, including alcohol and tobacco,
+\item
+  goods: other goods, including clothing, footwear and durable goods,
+\item
+  service: services, including transport and vehicles.
+\end{itemize}
+
+The aim of the survey was to investigate how the division of household
+expenditure between the four commodity groups depends on total
+expenditure and to find out whether this relationship differs for men
+and women. Load the data into a data frame in R and use appropriate
+graphical methods to answer these questions and state your conclusions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{household <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"household.txt"}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{sep =} \StringTok{","}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{group_sums <-}\StringTok{ }\KeywordTok{colSums}\NormalTok{(household[,}\DecValTok{1}\OperatorTok{:}\DecValTok{4}\NormalTok{])}
+\NormalTok{pct <-}\StringTok{ }\KeywordTok{round}\NormalTok{(group_sums}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(group_sums)}\OperatorTok{*}\DecValTok{100}\NormalTok{)}
+\NormalTok{lbls <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\KeywordTok{labels}\NormalTok{(group_sums), pct, }\StringTok{"%"}\NormalTok{)}
+\KeywordTok{pie}\NormalTok{(group_sums,}
+    \DataTypeTok{main =} \StringTok{"Household Expenditure: }\CharTok{\textbackslash{}n}\StringTok{ Across 4 Commodity Groups for Men & Women"}\NormalTok{,}
+    \DataTypeTok{labels =}\NormalTok{ lbls)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{groups_sums_grouped <-}\StringTok{ }\KeywordTok{aggregate}\NormalTok{(. }\OperatorTok{~}\StringTok{ }\NormalTok{household}\OperatorTok{$}\NormalTok{gender, household, sum)}
+\NormalTok{group_sums_men <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(groups_sums_grouped[}\DecValTok{2}\NormalTok{, }\DecValTok{2}\OperatorTok{:}\DecValTok{5}\NormalTok{])}
+\NormalTok{pct_men <-}\StringTok{ }\KeywordTok{round}\NormalTok{(group_sums_men}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(group_sums_men)}\OperatorTok{*}\DecValTok{100}\NormalTok{)}
+\NormalTok{lbls_men <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\KeywordTok{labels}\NormalTok{(group_sums), pct_men, }\StringTok{"%"}\NormalTok{)}
+\KeywordTok{pie}\NormalTok{(group_sums_men,}
+    \DataTypeTok{main =} \StringTok{"Household Expenditure: }\CharTok{\textbackslash{}n}\StringTok{ Across 4 Commodity Groups for Men"}\NormalTok{,}
+    \DataTypeTok{labels =}\NormalTok{ lbls_men)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{group_sums_women <-}\StringTok{ }\KeywordTok{as.numeric}\NormalTok{(groups_sums_grouped[}\DecValTok{1}\NormalTok{, }\DecValTok{2}\OperatorTok{:}\DecValTok{5}\NormalTok{])}
+\NormalTok{pct_women <-}\StringTok{ }\KeywordTok{round}\NormalTok{(group_sums_women}\OperatorTok{/}\KeywordTok{sum}\NormalTok{(group_sums_women)}\OperatorTok{*}\DecValTok{100}\NormalTok{)}
+\NormalTok{lbls_women <-}\StringTok{ }\KeywordTok{paste}\NormalTok{(}\KeywordTok{labels}\NormalTok{(group_sums), pct_women, }\StringTok{"%"}\NormalTok{)}
+\KeywordTok{pie}\NormalTok{(group_sums_women,}
+    \DataTypeTok{main =} \StringTok{"Household Expenditure: }\CharTok{\textbackslash{}n}\StringTok{ Across 4 Commodity Groups for Women"}\NormalTok{,}
+    \DataTypeTok{labels =}\NormalTok{ lbls_women)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-4-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(vcd)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: grid
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{gsg <-}\StringTok{ }\NormalTok{groups_sums_grouped[}\DecValTok{2}\OperatorTok{:}\DecValTok{5}\NormalTok{]}
+\KeywordTok{row.names}\NormalTok{(gsg) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"Women"}\NormalTok{, }\StringTok{"Men"}\NormalTok{)}
+\KeywordTok{spine}\NormalTok{(}\KeywordTok{as.matrix}\NormalTok{(gsg), }\DataTypeTok{main =} \StringTok{"Spinogram of Expenditures }\CharTok{\textbackslash{}n}\StringTok{ Commodity Group Spending between Women and Men"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-5-1.pdf} The
+pie charts and the spinogram above clearly show there is a difference in
+spending habits between men and woman. Men spend roughly the same
+proportion of money on each of the four categories while women spend
+much more on housing and goods. It's possible that women like remodeling
+their kitchens and lots of clothes and so spend more money in the
+housing and goods categories. Another explanation is that men eat a lot
+and are lazy so they spend more in the food and service categories.
+Explanations of this type rarely come down to one factor and so it is
+likely that the true cause is a little of both and possibly other
+factors.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Mortality rates per 100,000 from male suicides for a number of age
+  groups and a number of countries are provided in the suicides2 data
+  set. Load the data into R and construct side-by-side box plots for the
+  data from different age groups. Comment on what the graphic tells us
+  about the data.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{suicides <-}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"suicides.txt"}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{sep =} \StringTok{","}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{num_rows <-}\StringTok{ }\KeywordTok{nrow}\NormalTok{(suicides)}
+\KeywordTok{boxplot}\NormalTok{(suicides,}
+        \DataTypeTok{main =} \KeywordTok{paste}\NormalTok{(}\StringTok{"Boxplots for 100k Male Suicides for"}\NormalTok{, }\KeywordTok{toString}\NormalTok{(num_rows), }\StringTok{"Countries"}\NormalTok{),}
+        \DataTypeTok{xlab =} \StringTok{"Age Groups"}\NormalTok{,}
+        \DataTypeTok{ylab =} \StringTok{"Number of Suicides"}\NormalTok{,}
+        \DataTypeTok{names =} \KeywordTok{c}\NormalTok{(}\StringTok{"25 - 34"}\NormalTok{, }\StringTok{"35 - 44"}\NormalTok{, }\StringTok{"45 - 54"}\NormalTok{, }\StringTok{"55 - 64"}\NormalTok{, }\StringTok{"65 - 74"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Homework2_files/figure-latex/unnamed-chunk-7-1.pdf}
+Oddly we see more suicides the older men get. There should be more
+younger men, by the logic that older men must have been younger men at
+some point, so if the rate of suicides across age groups is constant
+then there should be a greater number of suicides for younger men. Also
+strange is the greater variance in suicides between in the groups 25 -
+34 and 55 - 64. These age groups roughly correlate to the quarter-life
+and mid-life chrisis. An explanation for this phenomenon could be that
+countries with greater pressures for men to succeed see high rates of
+suicides at these junctures while countries that have less pressure see
+normal amounts of suicide.
+
+
+\end{document}
