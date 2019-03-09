@@ -1,0 +1,30 @@
+---
+title: "Homework5"
+author: "Steven Black"
+date: "3/9/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Homework Assignment 5  (Due: March 17, 2019, midnight EST) 
+ 
+Use the fashion_mnist data that comes with Keras to answer the questions below.  The fashion_mnist dataset has 60,000 training images and 10,000 test images. All images are 28*28 arrays and are grey scale images. The images are individual articles of clothing labeled as 0-9 as follows: 0: T-shirt/top, 1: Trouser, 2: Pullover, 3: Dress, 4: Coat, 5: Sandal, 6:  Shirt, 7: Sneaker, 8: Bag, 9: Ankle boot.  You can follow the example from last week to answer questions 1-6.
+
+### 1.	Load the data into a variable called fashion.
+```{r}
+
+```
+
+### 2.	Load the train_images, train_labels, test_images, and test_labels into appropriate variables.
+### 3.	Build the network with one hidden layer with 512 units, and “relu” activation function.
+### 4.	Compile the network with “rmsprop” as the optimizer, “categorical_crossentropy” as the loss function, and “accuracy” as the metric.
+
+### 5.	Train the network. Remember that you will have to reshape the images and categorically encode the labels first.
+### 6.	Evaluate the network using the test images.
+### 7.	How many categories of clothing are there in the test set?
+### 8.	What category did the model predict test image 1? 
+### 9.	What is the test label for test image 1? 
+### 10.	Plot the image for test image #1 and verify the result.
