@@ -93,7 +93,7 @@ paste(class_names[class_num])
 
 ### 9.	What is the test label for test image 1? 
 ```{r}
-paste(class_names[test_labels[1]])
+paste(class_names[test_labels[1] + 1])
 ```
 
 ### 10.	Plot the image for test image #1 and verify the result.
