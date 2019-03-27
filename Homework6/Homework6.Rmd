@@ -1,0 +1,61 @@
+---
+title: "Homework6"
+author: "Steven Black"
+date: "3/27/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## IS 677: Introduction to Data Science Spring 2019 
+## Homework Assignment 6  (Due: March 24, 2019, midnight EST) 
+ 
+1.	Load the crime data from the website: 
+http://www.andrew.cmu.edu/user/achoulde/94842/data/crime_simple.txt, and store it into a dataframe. Check the structure of the data. (10 points)
+
+[hint:] you can use the command below to load the data. 
+
+[read.table("http://www.andrew.cmu.edu/user/achoulde/94842/data/crime_simple.txt", sep = "\t", header = TRUE)]
+
+Here are the explanations of the columns of the data: 
+
+R: Crime rate: # of offenses reported to police per million population
+
+Age: The number of males of age 14-24 per 1000 population
+
+S: Indicator variable for Southern states (0 = No, 1 = Yes)
+
+Ed: Mean # of years of schooling x 10 for persons of age 25 or older
+
+Ex0: 1960 per capita expenditure on police by state and local government
+
+Ex1: 1959 per capita expenditure on police by state and local government
+
+LF: Labor force participation rate per 1000 civilian urban males age 14-24
+
+M: The number of males per 1000 females
+
+N: State population size in hundred thousands
+
+NW: The number of non-whites per 1000 population
+
+U1: Unemployment rate of urban males per 1000 of age 14-24
+
+U2: Unemployment rate of urban males per 1000 of age 35-39
+
+W: Median value of transferable goods and assets or family income in tens of $
+
+X: The number of families per 1000 earning below 1/2 the median income
+
+2.	Create training data using 40 randomly selected rows and test data using the rest. (20 points)
+
+```{r}
+```
+
+3.	The first column in the data (R) is the target variable (the one that we want to predict, while the rest are independent variables that will be used for predicting the target variable. Write R code to Create the independent and target variables.  (10 points)
+4.	Normalize the data so that they are mean centered and scaled between -1 to 1. (10 points)
+5.	Build a network with to dense hidden layers. Choose the number of units to avoid overfitting. Select 50 epochs. (20 points)
+6.	Validate the model using k-fold cross validation where k=4. (20 points)
+7.	Compute the average of the per-epoch MAE scores for all folds. Plot the MAEs. When does the model start overfitting? (Note that you should clear previous sessions to avoid overestimating the model performance.) (10 points)
