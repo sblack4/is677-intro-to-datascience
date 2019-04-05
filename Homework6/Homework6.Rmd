@@ -17,45 +17,140 @@ http://www.andrew.cmu.edu/user/achoulde/94842/data/crime_simple.txt, and store i
 
 [hint:] you can use the command below to load the data. 
 
-[read.table("http://www.andrew.cmu.edu/user/achoulde/94842/data/crime_simple.txt", sep = "\t", header = TRUE)]
+[`read.table("http://www.andrew.cmu.edu/user/achoulde/94842/data/crime_simple.txt", sep = "\t", header = TRUE)`]
 
 Here are the explanations of the columns of the data: 
 
-R: Crime rate: # of offenses reported to police per million population
+* R: Crime rate: # of offenses reported to police per million population
+* Age: The number of males of age 14-24 per 1000 population
+* S: Indicator variable for Southern states (0 = No, 1 = Yes)
+* Ed: Mean # of years of schooling x 10 for persons of age 25 or older
+* Ex0: 1960 per capita expenditure on police by state and local government
+* Ex1: 1959 per capita expenditure on police by state and local government
+* LF: Labor force participation rate per 1000 civilian urban males age 14-24
+* M: The number of males per 1000 females
+* N: State population size in hundred thousands
+* NW: The number of non-whites per 1000 population
+* U1: Unemployment rate of urban males per 1000 of age 14-24
+* U2: Unemployment rate of urban males per 1000 of age 35-39
+* W: Median value of transferable goods and assets or family income in tens of $
+* X: The number of families per 1000 earning below 1/2 the median income
 
-Age: The number of males of age 14-24 per 1000 population
+```{r}
+crime_dataframe <- read.table("http://www.andrew.cmu.edu/user/achoulde/94842/data/crime_simple.txt", sep = "\t", header = TRUE)
 
-S: Indicator variable for Southern states (0 = No, 1 = Yes)
-
-Ed: Mean # of years of schooling x 10 for persons of age 25 or older
-
-Ex0: 1960 per capita expenditure on police by state and local government
-
-Ex1: 1959 per capita expenditure on police by state and local government
-
-LF: Labor force participation rate per 1000 civilian urban males age 14-24
-
-M: The number of males per 1000 females
-
-N: State population size in hundred thousands
-
-NW: The number of non-whites per 1000 population
-
-U1: Unemployment rate of urban males per 1000 of age 14-24
-
-U2: Unemployment rate of urban males per 1000 of age 35-39
-
-W: Median value of transferable goods and assets or family income in tens of $
-
-X: The number of families per 1000 earning below 1/2 the median income
+head(crime_dataframe)
+```
 
 2.	Create training data using 40 randomly selected rows and test data using the rest. (20 points)
 
 ```{r}
+crime_dataframe_sample <- crime_dataframe[sample(nrow(crime_dataframe), 40), ]
+
+print(paste("The dimensions of the dataframe are: ", dim(crime_dataframe_sample)))
+head(crime_dataframe_sample)
 ```
 
 3.	The first column in the data (R) is the target variable (the one that we want to predict, while the rest are independent variables that will be used for predicting the target variable. Write R code to Create the independent and target variables.  (10 points)
+```{r}
+target_variable <- crime_dataframe_sample["R"]
+dependent_variables <- subset(crime_dataframe_sample, select=-c(R))
+```
+
 4.	Normalize the data so that they are mean centered and scaled between -1 to 1. (10 points)
-5.	Build a network with to dense hidden layers. Choose the number of units to avoid overfitting. Select 50 epochs. (20 points)
+```{r}
+dependent_variables_normalized <- scale(dependent_variables, 
+                                    center=apply(dependent_variables, 2, mean), 
+                                    scale=apply(dependent_variables, 2, sd) 
+                                    )
+summary(dependent_variables_normalized)
+```
+
+```{r}
+target_variable_normalized <- scale(target_variable, 
+                                    center=apply(target_variable, 2, mean), 
+                                    scale=apply(target_variable, 2, sd) 
+                                    )
+summary(target_variable_normalized)
+
+```
+
+5.	Build a network with two dense hidden layers. Choose the number of units to avoid overfitting. Select 50 epochs. (20 points)
+```{r}
+library(keras)
+
+build_model <- function() {
+  model <- keras_model_sequential() %>%
+    layer_dense(units = 64, activation = "relu",
+                input_shape = dim(dependent_variables_normalized)[[2]]
+                ) %>%
+    layer_dense(units = 64, 
+                activation = "relu"
+                ) %>%
+    layer_dense(units = 1)
+  
+  model %>% compile(
+    optimizer = "rmsprop",
+    loss = "mse",
+    metrics = c("mae")
+  )
+}
+
+```
+
 6.	Validate the model using k-fold cross validation where k=4. (20 points)
+```{r}
+k <- 4
+indices <- sample(1:nrow(dependent_variables_normalized))
+folds <- cut(indices, breaks = k, labels = FALSE)
+
+num_epochs <- 50
+all_mae_histories <- NULL
+for (i in 1:k) {
+  cat("processing fold #", i, "\n")
+
+  val_indices <- which(folds == i, arr.ind = TRUE) 
+  val_data <- dependent_variables_normalized[val_indices,]
+  val_targets <- target_variable_normalized[val_indices]
+
+  partial_train_data <- dependent_variables_normalized[-val_indices,]
+  partial_train_targets <- target_variable_normalized[-val_indices]
+
+  model <- build_model()
+
+  history <- model %>% fit(
+    partial_train_data, 
+    partial_train_targets,
+    validation_data = list(val_data, val_targets),
+    epochs = num_epochs, batch_size = 1, verbose = 0
+  )
+  mae_history <- history$metrics$val_mean_absolute_error
+  all_mae_histories <- rbind(all_mae_histories, mae_history)
+}
+```
+
 7.	Compute the average of the per-epoch MAE scores for all folds. Plot the MAEs. When does the model start overfitting? (Note that you should clear previous sessions to avoid overestimating the model performance.) (10 points)
+```{r}
+k_clear_session()
+
+average_mae_history <- data.frame(
+  epoch = seq(1:ncol(all_mae_histories)),
+  validation_mae = apply(all_mae_histories, 2, mean)
+)
+```
+
+```{r}
+library(ggplot2)
+ggplot(average_mae_history, aes(x = epoch, y = validation_mae)) + geom_line()
+```
+```{r}
+ggplot(average_mae_history, aes(x = epoch, y = validation_mae)) + geom_smooth()
+```
+
+According to this plot, validation MAE stops improving significantly after the below value. Past that point, you start overfitting.
+
+```{r}
+with(average_mae_history, epoch[validation_mae == min(validation_mae)])
+```
+
+
