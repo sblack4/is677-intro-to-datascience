@@ -1,0 +1,24 @@
+---
+title: "Homework7"
+author: "Steven Black"
+date: "4/5/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## IS 677: Introduction to Data Science Spring 2019 
+Homework Assignment 7  (Due: April 7, 2019, midnight EST) 
+ 
+Use the fashion_mnist data that comes with Keras to answer the questions below.  The fashion_mnist dataset has 60,000 training images and 10,000 test images. All images are 28*28 arrays and are grey scale images. The images are individual articles of clothing labeled as 0-9 as follows: 0: T-shirt/top, 1: Trouser, 2: Pullover, 3: Dress, 4: Coat, 5: Sandal, 6:  Shirt, 7: Sneaker, 8: Bag, 9: Ankle boot.  You can follow the example from last week to answer questions 1-6.
+
+1.	Load the data into a variable called fashion. (5 points)
+2.	Load the train_images, train_labels, test_images, and test_labels into appropriate variables. (5 points)
+3.	Build the network with one hidden layer with 512 units, and “relu” activation function. Compile the network with “rmsprop” as the optimizer, “categorical_crossentropy” as the loss function, and “accuracy” as the metric. (10 points)
+4.	Train the network with 5 epochs. Remember that you will have to reshape the images and categorically encode the labels first. (10 points)
+5.	Validate the model with a validation split of 0.3 Plot the training and validation losses. Is the model overfitting or underfitting? Why? (10 points)
+6.	Clear the previous session. Reduce the model size. Train, validate with the same split and plot the losses. Is the model overfitting or underfitting? (20 points)
+7.	Fit the model in question 6 with 20 epochs. Is it overfitting? (20 points)
+8.	Clear the previous session. Add a dropout layer to the model in question 7 and retrain it with 20 epochs. Comment of model overfitting or underfttting.  (20 points)
