@@ -12,16 +12,70 @@ knitr::opts_chunk$set(echo = TRUE)
 ## IS 677: Introduction to Data Science Spring 2019 
 Homework Assignment 8  (Due: April 14, 2019, midnight EST) 
  
-Use the fashion_mnist data that comes with Keras to answer the questions below.  The fashion_mnist dataset has 60,000 training images and 10,000 test images. All images are 28*28 arrays and are grey scale images. The images are individual articles of clothing labeled as 0-9 as follows: 0: T-shirt/top, 1: Trouser, 2: Pullover, 3: Dress, 4: Coat, 5: Sandal, 6:  Shirt, 7: Sneaker, 8: Bag, 9: Ankle boot.  You can follow the example from last week to answer questions 1-6.
+Use the fashion_mnist data that comes with Keras to answer the questions below.
+The fashion_mnist dataset has 60,000 training images and 10,000 test images. 
+All images are 28*28 arrays and are grey scale images. 
+The images are individual articles of clothing labeled as 0-9 as follows: 
+
+- 0: T-shirt/top, 
+- 1: Trouser, 
+- 2: Pullover, 
+- 3: Dress, 
+- 4: Coat, 
+- 5: Sandal, 
+- 6:  Shirt, 
+- 7: Sneaker, 
+- 8: Bag, 
+- 9: Ankle boot.  
+
+You can follow the example from last week to answer questions 1-6.
+
+```{r}
+library(keras)
+```
 
 1.	Load the data into a variable called fashion. (5 points)
+```{r}
+fashion <- dataset_fashion_mnist()
+```
+
 2.	Load the train_images, train_labels, test_images, and test_labels into appropriate variables. (5 points)
+```{r}
+```
+
 3.	Reshape and scale the training and test images. (5 points)
+```{r}
+```
+
 4.	Create one-hot encoding of the training and test labels. (5 points)
+```{r}
+```
+
 5.	Build a convolutional NN for classifying the images: layer 1: 2D CONV 32 filters size 3*3, with RELU activation. Layer 2: 2D MAX_POOL with pool size=2*2, layer 3: 2D CONV 64 filters size 3*3, with RELU activation, layer 4: 2D MAX_POOL with pool size=2*2, layer 5: 2D CONV 64 filters size 3*3, layer 6: layer_flatten, layer 7: dense with 64 units and RELU activation, layer 8: you determine. (20 points)
+```{r}
+```
+
 6.	Compile the model with rmsprop as the optimizer and accuracy as the metric. You decide the loss function (5 points).
+```{r}
+```
+
 7.	Fit the model with 5 epochs, 0.3 validation split, and batch size of 64. (5 points)
+```{r}
+```
+
 8.	Evaluate the results using the test images. (5 points)
+```{r}
+```
+
 9.	Create a new CNN model to include a dropout layer with 50% dropout rate (25 points).
+```{r}
+```
+
 10.	Plot the two model performances. (10 points)
+```{r}
+```
+
 11.	Explain the results. (10 points)
+```{r}
+```
+
