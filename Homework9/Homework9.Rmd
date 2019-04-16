@@ -1,0 +1,64 @@
+---
+title: "Homework 9"
+author: "Steven Black"
+date: "4/16/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r}
+library(keras)
+```
+
+
+## IS 677: Introduction to Data Science Spring 2019 
+Homework Assignment 9  (Due: April 21, 2019, midnight EST) 
+ 
+Use the CIFAR10 dataset that comes with Keras. It has 50,000 training and 10,000 testing images of 10 classes: airplane, automobile, bird, cat, deer, dog, frog, horse, ship, and truck. The image size is 32\*32*3. The 3 indicates that these are color images. 
+ 
+1.	Load the data into a variable called cifar. (5 points)
+```{r}
+
+```
+
+2.	Load the first 1000 train_images and the corresponding train_labels, first 500 test_images and the corresponding test_labels into appropriate variables. (5 points)
+```{r}
+
+```
+
+3.	Create one-hot encoding for the labels for both train and test labels. (5 points)
+```{r}
+
+```
+
+4.	Reshape and scale the training and test images using image data generators of batch sizes 20. Use the test data for validation. (15 points)
+```{r}
+
+```
+
+5.	Create a sequential Keras model similar to listing 5.5 with three conv2d layers with filter sizes of 32, 64, and 128, max_pooloing layers of pool size (2,2) after each conv layer, and a dropout layer with 25% dropouts after the max_pooling layers and 50% dropouts after the pre-final dense layer. Note that the last layer is dense with 10 units and softmax activation. (25 points)
+```{r}
+
+```
+
+6.	Compile the model with categorical_crossentropy as the loss function and optimizer_rmsprop with 0.01% learning rate (lr=0.0001). (5 points)
+```{r}
+
+```
+
+7.	Fit the model using fit_generator() with 30 epochs. Use the test data generator for the validation data. Store the results in a variable called history. (5 points)
+```{r}
+
+```
+
+8.	Clear the session. Redo steps 5-6. Create a data generator with data augmentation with the parameters shown in listing 5.14 for datagen. Fit the model with the data generator. (25 points)
+```{r}
+
+```
+
+9.	Explain the results. (10 points)
