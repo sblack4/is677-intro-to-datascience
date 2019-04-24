@@ -58,12 +58,45 @@ test_labels_categorical <- to_categorical(test_labels)
 
 4.	Instantiate a VGG16 convolutional base without the top layer. (5 points)
 ```{r}
-
+conv_base <- application_vgg16(  
+  weights = "imagenet",  
+  include_top = FALSE,  
+  input_shape = c(150, 150, 3)
+)
 ```
 
 
 5.	Extract features from the CIFAR10 images so as to fit the conv_base. (40 points)
 ```{r}
+datagen <- image_data_generator(rescale = 1/255)
+batch_size <- 20
+
+extract_features <- function(training_data, training_labels, sample_count) {   
+ 	features <- array(0, dim = c(sample_count, 4, 4, 512))    
+	labels <- array(0, dim = c(sample_count))
+	
+	generator <- flow_images_from_data(    
+		x = training_data,    
+		y = training_labels,
+		generator = datagen,    
+		batch_size = batch_size
+	)
+	
+	i <- 0  
+	while(TRUE) {    
+    batch <- generator_next(generator)    
+		inputs_batch <- batch[[1]]    
+		labels_batch <- batch[[2]]    
+		features_batch <- conv_base %>% predict(inputs_batch)       
+		index_range <- ((i * batch_size)+1):((i + 1) * batch_size)    					
+		features[index_range,,,] <- features_batch    
+		labels[index_range] <- labels_batch       
+		i <- i + 1   
+		if (i * batch_size >= sample_count) 
+	    break  
+	}   
+	list(features = features,     labels = labels  )
+}
 
 ```
 
