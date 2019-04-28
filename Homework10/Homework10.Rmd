@@ -41,11 +41,14 @@ cifar <- dataset_cifar10()
 
 2.	Create a small training dataset using the first 1000 training images (and the corresponding labels) from CIFAR10. Similarly, create a small test dataset (and the corresponding labels) using the first test 500 images from CIFAR10. (5 points).
 ```{r}
-train_images <- cifar$train$x[1:1000, 1:32, 1:32, 1:3]
-train_labels <- cifar$train$y[1:1000]
+num_training_images <- 1000
+num_testing_images <- 500
 
-test_images <- cifar$test$x[1:500, 1:32, 1:32, 1:3]
-test_labels <- cifar$test$y[1:500]
+train_images <- cifar$train$x[1:num_training_images, 1:32, 1:32, 1:3]
+train_labels <- cifar$train$y[1:num_training_images]
+
+test_images <- cifar$test$x[1:num_testing_images, 1:32, 1:32, 1:3]
+test_labels <- cifar$test$y[1:num_testing_images]
 ```
 
 
@@ -61,65 +64,89 @@ test_labels_categorical <- to_categorical(test_labels)
 conv_base <- application_vgg16(  
   weights = "imagenet",  
   include_top = FALSE,  
-  input_shape = c(150, 150, 3)
+  input_shape = c(32, 32, 3)
 )
+conv_base
 ```
 
 
 5.	Extract features from the CIFAR10 images so as to fit the conv_base. (40 points)
 ```{r}
 datagen <- image_data_generator(rescale = 1/255)
-batch_size <- 20
+batch_size <- 10
 
-extract_features <- function(training_data, training_labels, sample_count) {   
- 	features <- array(0, dim = c(sample_count, 4, 4, 512))    
-	labels <- array(0, dim = c(sample_count))
-	
-	generator <- flow_images_from_data(    
-		x = training_data,    
-		y = training_labels,
-		generator = datagen,    
-		batch_size = batch_size
-	)
-	
-	i <- 0  
-	while(TRUE) {    
-    batch <- generator_next(generator)    
-		inputs_batch <- batch[[1]]    
-		labels_batch <- batch[[2]]    
-		features_batch <- conv_base %>% predict(inputs_batch)       
-		index_range <- ((i * batch_size)+1):((i + 1) * batch_size)    					
-		features[index_range,,,] <- features_batch    
-		labels[index_range] <- labels_batch       
-		i <- i + 1   
-		if (i * batch_size >= sample_count) 
-	    break  
-	}   
-	list(features = features,     labels = labels  )
-}
+train_generator <- flow_images_from_data(    
+	x = train_images,    
+	y = train_labels_categorical,
+	generator = datagen,    
+	batch_size = batch_size
+)
+features_batch <- conv_base %>% predict_generator(train_generator, 
+                                                  steps = num_training_images / batch_size) 
+ 
+test_generator <- flow_images_from_data(    
+	x = test_images,    
+	y = test_labels_categorical,
+	generator = datagen,    
+	batch_size = batch_size
+)
 
+test_features_batch <- conv_base %>% predict_generator(test_generator, 
+                                                  steps = num_testing_images / batch_size) 
 ```
+
+```{r}
+dim(features_batch)
+```
+
 
 
 6.	Flatten the features in order to feed them to a densely connected classifier. (5 points)
 ```{r}
+reshape_features <- function(features) {
+  array_reshape(features, dim = c(nrow(features), 1 * 1 * 512))
+}
 
+train_features <- reshape_features(features_batch)
+test_features <- reshape_features(test_features_batch)
 ```
 
 
-7.	Build a model with one dense layer with 256 units and “relu” activation, one dropout alyer with 50% dropout rate, and a dense output layer with appropriate parameters. (15 points)
+7.	Build a model with one dense layer with 256 units and “relu” activation, one dropout layer with 50% dropout rate, and a dense output layer with appropriate parameters. (15 points)
 ```{r}
+model <- keras_model_sequential() %>%
+  layer_dense(units = 256, activation = "relu",
+              input_shape = 1 * 1 * 512) %>%
+  layer_dropout(rate = 0.5) %>%
+  layer_dense(units = 10, activation = "sigmoid")
 
+model
 ```
 
 8.	Compile the model with categorical_crossentropy as the loss function and optimizer_rmsprop with 0.01% learning rate (lr=0.0001). (5 points)
 ```{r}
-
+model %>% compile(
+  optimizer = optimizer_rmsprop(lr=0.0001),
+  loss = "categorical_crossentropy",
+  metrics = c("accuracy")
+)
 ```
 
 9.	Fit the model using 30 epochs. Plot the loss and accuracies. (5 points)
 ```{r}
+history <- model %>% fit(
+  train_features, train_labels_categorical,
+  epochs = 30,
+  batch_size = 20,
+  validation_data = list(test_features, test_labels_categorical)
+)
 
+plot(history)
 ```
 
 10.	Note that the model is likely to have low accuracy. Explain why. (10 points)
+
+This model is overfitting almost from the start. The accuracy for the training set is drastically higher than that of the validation set. The overfitting is probably due to not using data augmentation, which is important for a small dataset like this.  
+
+
+
