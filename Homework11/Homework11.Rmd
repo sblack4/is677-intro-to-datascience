@@ -82,7 +82,7 @@ for (i in 1:7) {
   n_cols <- n_features %/% images_per_row
   
   file_name <- paste0("zebra_activations_", i, "_", layer_name, ".png")
-  append(file_names, c(file_name))
+  file_names <- append(file_names, c(file_name))
   
   png(file_name,
       width = image_size * images_per_row,
@@ -101,20 +101,15 @@ for (i in 1:7) {
 }
 ```
 
-```{r}
-for(filename in file_names) {
-  img_path <- "./zebra.jpg"
-  img <- image_load(img_path, target_size = c(224, 224))
-    
-  img_tensor <- img %>%
+```{r fig.align='center'}
+for(img_path in file_names) {
+  paste(img_path)
+  img <- image_load(img_path) %>%
     image_to_array() %>%
-    array_reshape(dim = c(1, 224, 224, 3)) %>%
     `/`(255)
-  
-  plot(as.raster(img_tensor[1,,,]))
+  paste("Image of ", img_path)
+  plot(as.raster(img))
 }
 ```
-
-
 
 
